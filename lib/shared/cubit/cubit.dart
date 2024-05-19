@@ -43,7 +43,7 @@ class AppCubit extends Cubit<AppStates>
         print('database created');
         database
             .execute(
-            'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, date TEXT, time TEXT, status TEXT, notify INTEGER)')
+            'CREATE TABLE tasks (id INTEGER PRIMARY KEY, title TEXT, date TEXT, time TEXT, status TEXT,description TEXT, notify INTEGER)')
             .then((value) {
           print('table created');
         }).catchError((error) {
@@ -65,10 +65,11 @@ class AppCubit extends Cubit<AppStates>
     required String title,
     required String time,
     required String date,
+    required String description,
     required int notify,
   }) async {
     await database?.transaction((txn) => txn.rawInsert(
-                'INSERT INTO tasks(title, date, time, status, notify) VALUES("$title", "$date", "$time", "new", "$notify")').then((value)
+                'INSERT INTO tasks(title, date, time, status,description, notify) VALUES("$title", "$date", "$time", "new","$description", "$notify")').then((value)
         {
           print('$value inserted successfully');
           emit(AppInsertDatabaseState());
@@ -94,7 +95,20 @@ class AppCubit extends Cubit<AppStates>
     });
   }
 
-  void deleteData({
+  Future<void> updateDescription({
+    required String? description,
+    required int id,
+  }) async {
+    database!.rawUpdate(
+      'UPDATE tasks SET description = ? WHERE id = ?',
+      [description, id],
+    ).then((value) {
+      getDataFromDatabase(database);
+      emit(AppUpdateDesState());
+    });
+  }
+
+  Future<void> deleteData({
     required int id,
   }) async
   {
@@ -139,4 +153,9 @@ class AppCubit extends Cubit<AppStates>
     fabIcon = icon;
     emit(AppChangeBottomSheetState());
   }
+
+  void refreshApp() {
+    emit(AppGetRefreshState());
+  }
 }
+

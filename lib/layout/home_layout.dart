@@ -30,9 +30,11 @@ class _HomeLayoutState extends State<HomeLayout> {
   var titleController = TextEditingController();
   var timeController = TextEditingController();
   var dateController = TextEditingController();
+  var desController = TextEditingController();
   String? notifyTitle = '';
   String? notifyTime = '';
   String? notifyDate = '';
+  String? notifyDescription = '';
   int id = 0;
   late DateTime sD;
   late TimeOfDay sT;
@@ -91,10 +93,12 @@ class _HomeLayoutState extends State<HomeLayout> {
                     notifyTitle = titleController.text;
                     notifyDate = dateController.text;
                     notifyTime = timeController.text;
+                    notifyDescription = desController.text;
                     cubit.insertToDatabase(
                         title: titleController.text,
                         time: timeController.text,
                         date: dateController.text,
+                        description: desController.text,
                         notify: id,
                     ).then((value) {
                       AwesomeNotifications().createNotification(
@@ -112,7 +116,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                             channelKey: 'schedule',
                             title: notifyTitle,
                             largeIcon: 'resource://drawable/tasks',
-                            body: 'It\'s your task time, go and finish it 💪',
+                            body: notifyDescription == "" ?'It\'s your task time, go and finish it 💪':notifyDescription,
                             displayOnBackground: true,
                             displayOnForeground: true,
                           ),
@@ -165,6 +169,9 @@ class _HomeLayoutState extends State<HomeLayout> {
                                         return null;
                                       },
                                       decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20.0),
+                                        ),
                                         enabledBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(20.0),
                                             borderSide: BorderSide(color: Colors.black,)
@@ -178,6 +185,40 @@ class _HomeLayoutState extends State<HomeLayout> {
                                         prefixIcon: Icon(
                                           Icons.title,
                                           color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 15.0,
+                                    ),
+                                    SizedBox(
+                                      height: 130,
+                                      width: double.infinity,
+                                      child: TextFormField(
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                        controller: desController,
+                                        maxLines: 10,
+                                        keyboardType: TextInputType.text,
+                                        decoration: InputDecoration(
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20.0),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(20.0),
+                                              borderSide: BorderSide(color: Colors.black,)
+                                          ),
+                                          labelText: 'Task Description',
+                                          labelStyle: TextStyle(
+                                            fontFamily: 'NoyhR',
+                                            fontSize: 20.0,
+                                            color: Colors.black45,
+                                          ),
+                                          prefixIcon: Icon(
+                                            Icons.description_outlined,
+                                            color: Colors.black,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -204,6 +245,9 @@ class _HomeLayoutState extends State<HomeLayout> {
                                         return null;
                                       },
                                       decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20.0),
+                                        ),
                                         enabledBorder: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(20.0),
                                             borderSide: BorderSide(color: Colors.black,)
@@ -245,6 +289,9 @@ class _HomeLayoutState extends State<HomeLayout> {
                                         return null;
                                       },
                                       decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(20.0),
+                                        ),
                                         enabledBorder: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(20.0),
                                             borderSide: BorderSide(color: Colors.black,)

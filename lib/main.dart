@@ -14,8 +14,6 @@ void main() async {
       channelKey: 'high_importance_channel',
       channelName: 'Basic notifications',
       channelDescription: 'Notification channel for basic tests',
-      // defaultColor: const Color(0xFFde2821),
-      // ledColor: Colors.white,
       importance: NotificationImportance.Max,
       channelShowBadge: true,
       onlyAlertOnce: true,
@@ -28,8 +26,6 @@ void main() async {
       channelKey: 'schedule',
       channelName: 'Basic notifications',
       channelDescription: 'Notification channel for basic tests',
-      // defaultColor: const Color(0xFFde2821),
-      // ledColor: Colors.white,
       importance: NotificationImportance.Max,
       channelShowBadge: true,
       onlyAlertOnce: true,
@@ -63,6 +59,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomeLayout(),
+      theme: ThemeData(
+        fontFamily: 'NoyhR',
+        colorScheme: ThemeData().colorScheme.copyWith(primary: Color(0xFF2fe48d)),
+        datePickerTheme: ThemeData().datePickerTheme.copyWith(backgroundColor: Colors.white),
+          timePickerTheme: ThemeData().timePickerTheme.copyWith(
+            backgroundColor: Colors.white,
+            dayPeriodColor: MaterialStateColor.resolveWith((states) => states.contains(MaterialState.selected) ? const Color(0xFF2fe48d) : Colors.grey.withOpacity(0.2)),
+            dayPeriodTextColor: MaterialStateColor.resolveWith((states) => states.contains(MaterialState.selected) ? Colors.white : Colors.black),
+            dayPeriodBorderSide: const BorderSide(color: Color(0xFF2fe48d),width: 2),
+            dialBackgroundColor: Colors.grey.withOpacity(0.2),
+            entryModeIconColor: const Color(0xFF2fe48d),
+            hourMinuteColor: MaterialStateColor.resolveWith((states) => states.contains(MaterialState.selected) ? const Color(0xFF2fe48d) : Colors.grey.withOpacity(0.2)),
+            hourMinuteTextColor: MaterialStateColor.resolveWith((states) => states.contains(MaterialState.selected) ? Colors.white : Colors.black),
+          )
+      ),
     );
   }
 }
