@@ -8,14 +8,14 @@ import 'package:todo_list/shared/bloc_observer.dart';
 void main() async {
   Bloc.observer = MyBlocObserver();
   await AwesomeNotifications().initialize(
-    'resource://drawable/tasks', [
+    'resource://drawable/tasks2', [
     NotificationChannel(
       channelGroupKey:'high_importance_channel_group',
       channelKey: 'high_importance_channel',
       channelName: 'Basic notifications',
       channelDescription: 'Notification channel for basic tests',
-      defaultColor: const Color(0xFFde2821),
-      ledColor: Colors.white,
+      // defaultColor: const Color(0xFFde2821),
+      // ledColor: Colors.white,
       importance: NotificationImportance.Max,
       channelShowBadge: true,
       onlyAlertOnce: true,
@@ -28,8 +28,8 @@ void main() async {
       channelKey: 'schedule',
       channelName: 'Basic notifications',
       channelDescription: 'Notification channel for basic tests',
-      defaultColor: const Color(0xFFde2821),
-      ledColor: Colors.white,
+      // defaultColor: const Color(0xFFde2821),
+      // ledColor: Colors.white,
       importance: NotificationImportance.Max,
       channelShowBadge: true,
       onlyAlertOnce: true,
